@@ -49,15 +49,22 @@ impl RequestBuilder<MissingUrl, MissingMethod, MissingBody> {
     }
 }
 
-impl<U, M> RequestBuilder<U, M, MissingBody> {
-    /// Return a RequestBuilder with a Body
-    pub fn body(self, body: impl Into<String>) -> RequestBuilder<U, M, Body> {
+// Basic functions for building request
+impl<U, M, B> RequestBuilder<U, M, B> {
+    /// Returns a RequestBuilder with a URL
+    pub fn url(self, url: impl Into<String>) -> RequestBuilder<Url, M, B> {
         RequestBuilder {
-            url: self.url,
+            url: Url(url.into()),
             method: self.method,
             headers: self.headers,
-            body: Body(Some(body.into())),
+            body: self.body,
         }
+    }
+
+    /// Adds a header to a request
+    pub fn header(mut self, key: impl Into<String>, value: impl Into<String>) -> Self {
+        self.headers.push((key.into(), value.into()));
+        self
     }
 }
 
@@ -85,22 +92,15 @@ impl<U, B> RequestBuilder<U, MissingMethod, B> {
     }
 }
 
-// Basic functions for building request
-impl<U, M, B> RequestBuilder<U, M, B> {
-    /// Returns a RequestBuilder with a URL
-    pub fn url(self, url: impl Into<String>) -> RequestBuilder<Url, M, B> {
+impl<U, M> RequestBuilder<U, M, MissingBody> {
+    /// Return a RequestBuilder with a Body
+    pub fn body(self, body: impl Into<String>) -> RequestBuilder<U, M, Body> {
         RequestBuilder {
-            url: Url(url.into()),
+            url: self.url,
             method: self.method,
             headers: self.headers,
-            body: self.body,
+            body: Body(Some(body.into())),
         }
-    }
-
-    /// Adds a header to a request
-    pub fn header(mut self, key: impl Into<String>, value: impl Into<String>) -> Self {
-        self.headers.push((key.into(), value.into()));
-        self
     }
 }
 

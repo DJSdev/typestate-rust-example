@@ -17,13 +17,6 @@ struct RequestBuilder<U, M, B> {
     body: B,
 }
 
-#[derive(Default, Debug, Clone)]
-pub enum Method {
-    #[default]
-    GET,
-    POST,
-}
-
 /// STATES
 // URL States
 #[derive(Default, Clone)]
@@ -34,6 +27,12 @@ pub struct Url(String);
 // Method States
 #[derive(Default, Clone)]
 pub struct MissingMethod;
+#[derive(Default, Debug, Clone)]
+pub enum Method {
+    #[default]
+    GET,
+    POST,
+}
 
 // Body States
 #[derive(Default, Clone)]

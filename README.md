@@ -2,7 +2,7 @@
 
 This is a basic example of using a TypeState Builder pattern in Rust
 
-## Cite
+## Details
 
 This video was the starting point: https://www.youtube.com/watch?v=pwmIQzLuYl0
 

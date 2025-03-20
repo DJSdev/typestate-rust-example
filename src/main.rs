@@ -8,6 +8,15 @@ pub struct Request {
     body: Option<String>,
 }
 
+// Request Builder
+#[derive(Default)]
+struct RequestBuilder<U, M, B> {
+    url: U,
+    method: M,
+    headers: Vec<(String, String)>,
+    body: B,
+}
+
 #[derive(Default, Debug, Clone)]
 pub enum Method {
     #[default]
@@ -33,15 +42,6 @@ pub struct MissingBody;
 pub struct NoBody;
 #[derive(Default, Clone)]
 pub struct Body(Option<String>);
-
-// Request Builder
-#[derive(Default)]
-struct RequestBuilder<U, M, B> {
-    url: U,
-    method: M,
-    headers: Vec<(String, String)>,
-    body: B,
-}
 
 // Default state is always going to start off without a Url, Method, or Body
 impl RequestBuilder<MissingUrl, MissingMethod, MissingBody> {

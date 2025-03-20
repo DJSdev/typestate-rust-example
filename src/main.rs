@@ -104,9 +104,10 @@ impl<U, M> RequestBuilder<U, M, MissingBody> {
     }
 }
 
-// There are two states during build
-//   1. With a Body
-//   2. Without a Body
+/// There are three states during build
+///   1. NoBody (GET)
+///   2. Body (POST)
+///   3. MissingBody (POST)
 impl RequestBuilder<Url, Method, Body> {
     pub fn build(self) -> Request {
         Request {

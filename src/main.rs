@@ -142,15 +142,18 @@ impl RequestBuilder<Url, Method, MissingBody> {
 fn main() -> Result<()> {
     // When building a GET, `body()` cannot be called, and a RequestBuilder with NoBody is returned
     let req = RequestBuilder::new()
-    .get()
-    .url("https://www.google.com")
-    .header("Token", "zxcvasdv")
-    .header("user-agent", "chrome/4.20.69")
-    // .body("asdf") // throws a compiler error since `.get()` returns a RequestBuilder with a NoBody
-    .build();
+        .get()
+        .url("https://www.google.com")
+        .header("Token", "zxcvasdv")
+        .header("user-agent", "chrome/4.20.69")
+        // .body("asdf") // throws a compiler error since `.get()` returns a RequestBuilder with a NoBody
+        .build();
 
     println!("** GET Request **");
-    println!("{:?} {} {:?} {:?} \n", req.method, req.url, req.headers, req.body);
+    println!(
+        "{:?} {} {:?} {:?} \n",
+        req.method, req.url, req.headers, req.body
+    );
 
     // When building a POST and calling `body()` a RequestBuilder with Body is returned
     let req = RequestBuilder::new()
@@ -162,7 +165,10 @@ fn main() -> Result<()> {
         .build();
 
     println!("** POST Request **");
-    println!("{:?} {} {:?} {:?} \n", req.method, req.url, req.headers, req.body);
+    println!(
+        "{:?} {} {:?} {:?} \n",
+        req.method, req.url, req.headers, req.body
+    );
 
     // When building a POST without calling `body()` a RequestBuilder with MissingBody is returned
     let req = RequestBuilder::new()
@@ -174,7 +180,10 @@ fn main() -> Result<()> {
         .build();
 
     println!("** POST Request with missing body **");
-    println!("{:?} {} {:?} {:?} \n", req.method, req.url, req.headers, req.body);
+    println!(
+        "{:?} {} {:?} {:?} \n",
+        req.method, req.url, req.headers, req.body
+    );
 
     Ok(())
 }
